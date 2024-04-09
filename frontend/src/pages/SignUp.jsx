@@ -39,7 +39,7 @@ const SignUp = () => {
 
   };
   return (
-    <div className='bg-[#1C1C1C] p-8 h- min-h-screen'>
+    <div className='bg-cover bg-[url("/signin.jpeg")] bg-opacity-10 p-20 h-screen'>
       <div className='p-3 max-w-lg mx-auto bg-white rounded-2xl'>
         <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
         <form className=' flex flex-col gap-4 ' onSubmit={handleSubmit}>

@@ -40,16 +40,15 @@ const SignIn = () => {
 
   };
   return (
-    <div className='bg-[#1C1C1C] p-8 h- min-h-screen'>
-      <div className='p-3 max-w-lg mx-auto bg-white rounded-2xl'>
+    <><div className='bg-cover bg-[url("/signin.jpeg")] bg-opacity-10 p-20 h-screen'>
+      <div className='p-5 max-w-lg mx-auto mb-20 bg-white  rounded-2xl'>
         <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
         <form className=' flex flex-col gap-4 ' onSubmit={handleSubmit}>
-          <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' />
-          <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' />
-          <button className=' bg-slate-700 p-3 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80' disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
-        
+          <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-300 p-3 rounded-lg' />
+          <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-300 p-3 rounded-lg text-slate-800' />
+          <button className='bg-[#e0c007] bg-slate-600 p-3 rounded-lg text-white uppercase hover:opacity-85 disabled:opacity-10 ' disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
         </form>
-        <div className='flex gap-2 mt-5'>
+        <div className='flex gap-5 mt-5'>
           <p>Not have an account?</p>
           <Link to="/signup">
             <span className='text-blue-500'>Sign up</span>
@@ -58,6 +57,7 @@ const SignIn = () => {
         <p className='text-red-700 mt-5'>{error ? error.message || 'Something went wrong!' : ""}</p>
       </div>
     </div>
+    </>
   )
 }
 
