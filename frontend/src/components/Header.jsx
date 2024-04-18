@@ -49,7 +49,7 @@ const Header = () => {
             </li>
             <li>
               {currentUser && currentUser.isAdmin && (
-                <a className="btn" href="#"> User-Management</a>
+                <a className="btn" href="/userMgmt"> User-Management</a>
               )}
             </li>
             <li>

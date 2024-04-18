@@ -43,12 +43,12 @@ const SignUp = () => {
       <div className='p-3 max-w-lg mx-auto bg-white rounded-2xl'>
         <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
         <form className=' flex flex-col gap-4 ' onSubmit={handleSubmit}>
-          <input onChange={handleChange} type="text" placeholder='Name' id='username' className='bg-slate-100 p-3 rounded-lg' required/>
-          <input onChange={handleChange} type="text" placeholder='Address' id='address' className='bg-slate-100 p-3 rounded-lg' required/>
-          <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' required/>
-          <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' pattern="^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$" title="Password must contain at least 8 characters, including at least one letter, one number and one special character" required/>
-          <button className=' bg-slate-700 p-3 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80' disabled={loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
-         
+          <input onChange={handleChange} type="text" placeholder='Name' id='username' className='bg-slate-100 p-3 rounded-lg' required />
+          <input onChange={handleChange} type="text" placeholder='Address' id='address' className='bg-slate-100 p-3 rounded-lg' required />
+          <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' required />
+          <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' pattern="^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$" title="Password must contain at least 8 characters, including at least one letter, one number and one special character" required />
+          <button className='bg-[#f0b20a] bg-600 p-3 rounded-lg text-white uppercase hover:opacity-85 disabled:opacity-10 ' disabled={loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
+
         </form>
         <div className='flex gap-2 mt-5'>
           <p>Have an account?</p>

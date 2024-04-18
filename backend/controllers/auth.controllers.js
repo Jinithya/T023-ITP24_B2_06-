@@ -4,6 +4,7 @@ import SigninHistory from "../models/signin.history.js";
 import bcryptjs from 'bcryptjs'
 import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 dotenv.config();
 
 export const signup = async (req, res, next) => {
@@ -30,10 +31,10 @@ export const signin = async (req, res, next) => {
         const signinEntry = {
             username: validUser.username,
             email: validUser.email,
-            signinDate: new Date() // Current date and time
+            signinDate: new Date() 
         };
         await SigninHistory.create(signinEntry);
-// Check if the user's email matches any admin email
+        // Check if the user's email matches any admin email
         const isAdmin = process.env.ADMIN_EMAILS.includes(email);
 
         const token = jwt.sign({ id: validUser._id, isAdmin }, process.env.JWT_SECRET);
@@ -78,6 +79,76 @@ export const google = async (req, res, next) => {
     }
 }
 
+export const forgotPassword = async (req, res, next) => {
+    const { email } = req.body;
+  
+    try {
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return next(errorHandler(404, 'User not found'));
+      }
+  
+      // Generate reset token
+      const resetToken = jwt.sign({ userId: user._id }, process.env.RESET_SECRET, { expiresIn: '1h' });
+  
+      user.resetToken = resetToken;
+      await user.save();
+  
+      // Create a nodemailer
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'jiniseha@gmail.com', 
+          pass: 'xsga zcjt tkae nmke' 
+        }
+      });
+    
+      let mailOptions = {
+        from: 'jiniseha@gmail.com', 
+        to: email, 
+        subject: 'Password Reset Request for Global bites',
+        text: `Hello,\n\nYou requested a password reset for your account. Please click on the following link to reset your password: http://localhost:5173/resetpassword?token=${resetToken}` // Email body with the reset token link
+      };
+  
+      // Send the email
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('Error sending email:', error);
+          return next(errorHandler(500, 'Failed to send email'));
+        } else {
+          console.log('Email sent:', info.response);
+          res.status(200).json({ message: 'Reset password link sent to your email' });
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const resetPassword = async (req, res, next) => {
+    const { resetToken, newPassword } = req.body;
+  
+    try {
+      const decodedToken = jwt.verify(resetToken, process.env.RESET_SECRET);
+      const user = await User.findById(decodedToken.userId);
+  
+      if (!user) {
+        return next(errorHandler(404, 'User not found'));
+      }
+  
+      // Update user's password
+      const hashedPassword = bcryptjs.hashSync(newPassword, 10);
+      user.password = hashedPassword;
+      user.resetToken = null; 
+      await user.save();
+  
+      res.status(200).json({ message: 'Password reset successful' });
+    } catch (error) {
+      next(error);
+    }
+  };
+ 
 export const signout = (req, res) => {
     res.clearCookie('access_token').status(200).json('Signout success!');
 }

@@ -34,9 +34,9 @@ export const updateUser = async (req, res, next) => {
 };
 
 // Delete user
-export const deleteUser = async (req, res, next) => { 
-  if (req.user.id !== req.params.id) {
-    return next(errorHandler(401, 'You can delete only your account!'));
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id == req.params.id) {
+    return next(errorHandler(401, 'Your account is Admin account. You can not delete your account!'));
   }
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -53,5 +53,46 @@ export const getAllUsers = async (req, res, next) => {
     res.status(200).json(users);
   } catch (error) {
     next(error);
+  }
+};
+
+//delete users from list
+export const deleteOneUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    await User.findByIdAndDelete(userId);
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+//update users from list
+export const updateoneUser = async (req, res) => {
+  const { id } = req.params;
+  const { username, address, email } = req.body;
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.username = username;
+    user.address = address;
+    user.email = email;
+
+    const updatedUser = await user.save();
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

@@ -6,6 +6,7 @@ import signinHistoryRoutes from "./routes/signinHistory.route.js"
 import cookieParser from "cookie-parser";
 import path from "path";
 import dotenv from "dotenv";
+import cors from 'cors';
 
 dotenv.config();
 
@@ -19,10 +20,8 @@ mongoose.connect(MONGO_URL)
 const __dirname = path.resolve();
 
 const app = express();
-// app.use(express.static(path.join(__dirname, 'client/dist')));
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-// })
+
+app.use(cors());
 app.use(express.json())
 app.use(cookieParser());
 

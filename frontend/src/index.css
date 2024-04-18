@@ -34,11 +34,12 @@
 
 }
 
-@media (max-width: 430px) and (min-width:100px){
-    nav h1{
+@media (max-width: 430px) and (min-width:100px) {
+    nav h1 {
         font-size: 4.2vw !important;
     }
-    nav li{
+
+    nav li {
         font-size: 3.3vw;
     }
 }

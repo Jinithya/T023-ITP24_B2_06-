@@ -85,7 +85,7 @@ const Profile = () => {
       console.log(error);
     }
   }
- 
+
   return (
     <div className='bg-cover bg-[url("/profile.jpeg")]  p-8 h- min-h-screen'>
       <div className='p-3 max-w-lg mx-auto bg-white rounded-2xl'>
@@ -120,7 +120,7 @@ const Profile = () => {
           <input type="text" id='address' placeholder='Address' defaultValue={currentUser.address} className='bg-slate-100 rounded-lg p-3' onChange={handleChange} />
           <input type="email" id='email' placeholder='Email' defaultValue={currentUser.email} className='bg-slate-100 rounded-lg p-3' onChange={handleChange} />
           <input type="password" id='password' placeholder='Password' className='bg-slate-100 rounded-lg p-3' onChange={handleChange} />
-          <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+          <button className='bg-[#f0b20a] bg-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
             {loading ? 'Loading' : 'Update'}
           </button>
         </form>

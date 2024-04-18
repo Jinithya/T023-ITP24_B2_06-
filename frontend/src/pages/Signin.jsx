@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import OAuth from '../components/OAuth';
 
 
-
 const SignIn = () => {
 
   const [formData, setformData] = useState({});
@@ -46,12 +45,17 @@ const SignIn = () => {
         <form className=' flex flex-col gap-4 ' onSubmit={handleSubmit}>
           <input onChange={handleChange} type="email" placeholder='Email' id='email' className='bg-slate-300 p-3 rounded-lg' />
           <input onChange={handleChange} type="password" placeholder='Password' id='password' className='bg-slate-300 p-3 rounded-lg text-slate-800' />
-          <button className='bg-[#e0c007] bg-slate-600 p-3 rounded-lg text-white uppercase hover:opacity-85 disabled:opacity-10 ' disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
+          <button className='bg-[#f0b20a] bg-600 p-3 rounded-lg text-white uppercase hover:opacity-85 disabled:opacity-10 ' disabled={loading}>{loading ? 'Loading...' : 'Sign In'}</button>
         </form>
         <div className='flex gap-5 mt-5'>
           <p>Not have an account?</p>
           <Link to="/signup">
             <span className='text-blue-500'>Sign up</span>
+          </Link>
+        </div>
+        <div className='flex gap-5 mt-5'>
+          <Link to="/forgotpassword">
+            <span className='text-blue-500'>Forgot password?</span>
           </Link>
         </div>
         <p className='text-red-700 mt-5'>{error ? error.message || 'Something went wrong!' : ""}</p>
